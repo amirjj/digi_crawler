@@ -13,30 +13,36 @@ def get_json_from_file(file):
         return data
 
 
+def fetch_landing_page_data(url_key):
+    json_requester = JSONRequester(ROOT_APIS[url_key])
+    response = json_requester.get()
+    js_store = JSONStore(response, prefix=url_key)
+    js_store.store()
 
-def start(url_key):
-    # json_requester = JSONRequester(ROOT_APIS[url_key])
-    # response = json_requester.get()
-    # js_store = JSONStore(response, prefix=url_key)
-    # js_store.store()
+def get_json_from_file():
     file = os.path.join(os.getcwd(), 'output', 'json', 'v1_20230115203651.json')
     json_data = get_json_from_file(file)
     parser = JSONParser(json_data)
     parser.fetch_keys()
 
+def start(url_key):
+    # fetch_landing_page_data(url_key)
+    # get_json_from_file()
+    pass
+
+
+
 
 if __name__ == "__main__":
     start('v1')
 
-
-
-
-
+# TODO: GO DEEP IN V1
 
 # TODO: FETCH INDEX & GET ALL CATEGORIES FIRST LIKE
 #  (/search/category-protein-foods/, /search/category-groceries/)
 
 # TODO: _next/static/chunks/
+#  https://www.digikala.com/_next/static/chunks/3154-99ad80e739fb30c1.js
 
 # TODO: fetch links from jsons
 
@@ -55,6 +61,10 @@ if __name__ == "__main__":
 
 # TODO: CRAWL ON GLASSDOOR TO FIND OUT WHAT TO LEARN
 
+# TODO: FETCH ANY LINK YOU FIND IN AND SAVE
+#  https://www.digikala.com/_next/static/chunks/8160-683b4886da2970b3.js
+#  https://www.digikala.com/_next/static/h3hyqNmWJBlRGuNLSfW0O/_buildManifest.js
+#  https://www.digikala.com/_next/static/chunks/9562.c1d6c0853c57c66d.js
 
     # print(response_dict.get('data'))
     # print(response_dict['data'])
