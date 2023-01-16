@@ -20,7 +20,6 @@ class JSONParser(BaseParser):
         pass
 
     @staticmethod
-    def search_in_js_file(file_path, keyword='search/'):
+    def search_in_js_file(file, keyword='/search/'):
         pass
-
-
+        # with open(file, 'r') as f:

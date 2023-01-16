@@ -3,7 +3,7 @@ import json
 
 from parser import JSONParser
 from requester import JSONRequester
-from config import ROOT_APIS
+from config import ROOT_APIS, OUTPUT_PATH
 from storing_utils import JSONStore
 
 
@@ -34,9 +34,11 @@ def start(url_key):
     # pass
 
 
-
 if __name__ == "__main__":
-    start('v1')
+    # start('v1')
+    file = os.path.join(OUTPUT_PATH, '3154-607956101b8ec160.js')
+    parser = JSONParser.search_in_js_file(file, '/search/')
+
 
 # TODO: GO DEEP IN V1
 
