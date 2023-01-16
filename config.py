@@ -6,6 +6,7 @@ BASE_LINK = ''
 ROOT_PATH = os.getcwd()
 OUTPUT_PATH_JSON = os.path.join(ROOT_PATH, 'output', 'json')
 OUTPUT_PATH_CSV = os.path.join(ROOT_PATH, 'output', 'csv')
+OUTPUT_PATH = os.path.join(ROOT_PATH, 'output')
 
 
 ROOT_APIS = {
@@ -107,3 +108,10 @@ SEARCH_TREE = {
         }
     },
 }
+
+
+KEYWORDS = [
+    '\/search\/[a-zA-Z0-9-]*\/\"',
+    '\/search\/[a-zA-Z0-9-]*\/[a-zA-Z0-9-]*\/\"',
+    '/main/'
+]
