@@ -12,12 +12,15 @@ class JSONParser(BaseParser):
     def __init__(self, json_data):
         self.json_data = json_data
 
-
     def fetch_keys(self):
         """return a complex json key hierarchy"""
-        print(type(self.json_data))
-
+        print(self.json_data)
 
     def parse(self):
         pass
+
+    @staticmethod
+    def search_in_js_file(file_path, keyword='search/'):
+        pass
+
 

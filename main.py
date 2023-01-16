@@ -7,6 +7,9 @@ from config import ROOT_APIS
 from storing_utils import JSONStore
 
 
+def search_json_keyword(json_data, keywords=('/search/', '/product/dkp')):
+    pass
+
 def get_json_from_file(file):
     with open(file, 'r') as f:
         data = json.loads(f.read())
@@ -19,7 +22,7 @@ def fetch_landing_page_data(url_key):
     js_store = JSONStore(response, prefix=url_key)
     js_store.store()
 
-def get_json_from_file():
+def get_from_file():
     file = os.path.join(os.getcwd(), 'output', 'json', 'v1_20230115203651.json')
     json_data = get_json_from_file(file)
     parser = JSONParser(json_data)
@@ -27,9 +30,8 @@ def get_json_from_file():
 
 def start(url_key):
     # fetch_landing_page_data(url_key)
-    # get_json_from_file()
-    pass
-
+    get_from_file()
+    # pass
 
 
 
