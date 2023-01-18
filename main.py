@@ -1,9 +1,10 @@
 import os
 import json
+import re
 
-from parser import JSONParser
+from parsers import JSONParser
 from requester import JSONRequester
-from config import ROOT_APIS, OUTPUT_PATH
+from config import ROOT_APIS, OUTPUT_PATH, PATTERNS
 from storing_utils import JSONStore
 
 
@@ -33,11 +34,31 @@ def start(url_key):
     get_from_file()
     # pass
 
+def get_links_from_file(file):
+
+    with open(file, 'r') as f:
+        content = f.read()
+
+    ALL_PATTERNS = "|".join(PATTERNS)
+    print(ALL_PATTERNS)
+    links = re.findall(ALL_PATTERNS, content)
+    for link in links:
+        print(link)
+
+
+
 
 if __name__ == "__main__":
     # start('v1')
     file = os.path.join(OUTPUT_PATH, '3154-607956101b8ec160.js')
-    parser = JSONParser.search_in_js_file(file, '/search/')
+    links = JSONParser.search_in_js_file(file)
+    # print(links)
+    with open(OUTPUT_PATH + os.sep +
+              'fetched_links_from_js.txt', "w") as f:
+        for link in links:
+            f.write(link + '\n')
+
+
 
 
 # TODO: GO DEEP IN V1

@@ -110,8 +110,21 @@ SEARCH_TREE = {
 }
 
 
-KEYWORDS = [
+PATTERNS = [
     '\/search\/[a-zA-Z0-9-]*\/\"',
     '\/search\/[a-zA-Z0-9-]*\/[a-zA-Z0-9-]*\/\"',
-    '/main/'
+    '\/search\/[a-zA-Z0-9-]*\/[a-zA-Z0-9-]*\/[a-zA-Z0-9-]*\/\"',
+
+    '\/main\/[a-zA-Z0-9-]*\/\"',
+    '\/main\/[a-zA-Z0-9-]*\/[a-zA-Z0-9-]*\/\"',
+    '\/main\/[a-zA-Z0-9-]*\/[a-zA-Z0-9-]*\/[a-zA-Z0-9-]*\/\"',
+
+    '\/brand\/[a-zA-Z0-9-]*\/\"',
+    '\/brand\/[a-zA-Z0-9-]*\/[a-zA-Z0-9-]*\/\"',
+    '\/brand\/[a-zA-Z0-9-]*\/[a-zA-Z0-9-]*\/[a-zA-Z0-9-]*\/\"',
+
+    '\/brand-landing\/[a-zA-Z0-9-]*\/\"',
+    '\/brand-landing\/[a-zA-Z0-9-]*\/[a-zA-Z0-9-]*\/\"',
+    '\/brand-landing\/[a-zA-Z0-9-]*\/[a-zA-Z0-9-]*\/[a-zA-Z0-9-]*\/\"',
+
 ]
