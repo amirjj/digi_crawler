@@ -1,10 +1,13 @@
+import argparse
+import glob
 import os
 import json
 import re
+import sys
 
 from parsers import JSONParser
 from requester import JSONRequester
-from config import ROOT_APIS, OUTPUT_PATH, PATTERNS
+from config import ROOT_APIS, OUTPUT_PATH, PATTERNS, OUTPUT_PATH_JSON
 from storing_utils import JSONStore
 
 
@@ -17,11 +20,13 @@ def get_json_from_file(file):
         return data
 
 
-def fetch_landing_page_data(url_key):
+def get_landing_api(url_key='v1'):
     json_requester = JSONRequester(ROOT_APIS[url_key])
     response = json_requester.get()
+    # json_requester.pretty_print(response)
     js_store = JSONStore(response, prefix=url_key)
     js_store.store()
+
 
 def get_from_file():
     file = os.path.join(os.getcwd(), 'output', 'json', 'v1_20230115203651.json')
@@ -29,51 +34,70 @@ def get_from_file():
     parser = JSONParser(json_data)
     parser.fetch_keys()
 
-def start(url_key):
-    # fetch_landing_page_data(url_key)
-    get_from_file()
-    # pass
-
-def get_links_from_file(file):
-
-    with open(file, 'r') as f:
-        content = f.read()
-
-    ALL_PATTERNS = "|".join(PATTERNS)
-    print(ALL_PATTERNS)
-    links = re.findall(ALL_PATTERNS, content)
-    for link in links:
-        print(link)
+# def start(url_key):
+#     fetch_landing_page_data(url_key)
+#     get_from_file()
 
 
-
-
-if __name__ == "__main__":
-    # start('v1')
+def update_js_links():
     file = os.path.join(OUTPUT_PATH, '3154-607956101b8ec160.js')
     links = JSONParser.search_in_js_file(file)
-    # print(links)
     with open(OUTPUT_PATH + os.sep +
               'fetched_links_from_js.txt', "w") as f:
         for link in links:
             f.write(link + '\n')
 
 
+def update_landing_api_links():
+    files = glob.glob(OUTPUT_PATH_JSON + os.sep + 'v1_*')
+    latest_file = max(files, key=os.path.getctime)
+
+    links = JSONParser.pars_api_for_kw(latest_file)
+    # for link in links:
+    #     print(link)
+    with open(OUTPUT_PATH + os.sep +
+              'fetched_links_from_api.txt', "w") as f:
+        for link in links:
+            f.write(link + '\n')
 
 
-# TODO: GO DEEP IN V1
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        prog='digi_crawler',
+        description='fetch links from Digikala and crawl in them and fetch '
+                    'data',
+    )
+    parser.add_argument(
+        '--update-js-links',
+        action='store_true',
+        help='Pars JS files of Digikala and fetch API links for crawler stores in OUTPUT directory'
+    )
+    parser.add_argument(
+        '--get-landing-api',
+        action='store_true',
+        help='GET landing page API result containing most links, APIs, promotions (store in json directory) '
+    )
 
-# TODO: FETCH INDEX & GET ALL CATEGORIES FIRST LIKE
-#  (/search/category-protein-foods/, /search/category-groceries/)
+    parser.add_argument(
+        '--update-landing-api-links',
+        action='store_true',
+        help='pars fetched landing API and update link database for crawler stores in OUTPUT directory'
+    )
 
-# TODO: _next/static/chunks/
-#  https://www.digikala.com/_next/static/chunks/3154-99ad80e739fb30c1.js
+    args = parser.parse_args()
+    print(args)
 
-# TODO: fetch links from jsons
+    if args.update_js_links:
+        update_js_links()
+
+    if args.get_landing_api:
+        get_landing_api()
+
+    if args.update_landing_api_links:
+        update_landing_api_links()
+
 
 # TODO: CREATE A URLBUILDER
-
-# TODO: MAKE IT INTERACTIVE COMMANDLINE APP
 
 # TODO: NEED TO BE OOP AND WRITE TEST FOR ALL
 
@@ -85,28 +109,3 @@ if __name__ == "__main__":
 # TODO: Write parser to nezam mohandesi
 
 # TODO: CRAWL ON GLASSDOOR TO FIND OUT WHAT TO LEARN
-
-# TODO: FETCH ANY LINK YOU FIND IN AND SAVE
-#  https://www.digikala.com/_next/static/chunks/8160-683b4886da2970b3.js
-#  https://www.digikala.com/_next/static/h3hyqNmWJBlRGuNLSfW0O/_buildManifest.js
-#  https://www.digikala.com/_next/static/chunks/9562.c1d6c0853c57c66d.js
-
-    # print(response_dict.get('data'))
-    # print(response_dict['data'])
-
-    # print(response.text)
-    # soup = BeautifulSoup(response.text, 'html.parser')
-    #
-    # print(soup.title)
-    # print(soup.title.name)
-    # print(soup.title.string)
-    # print(soup.p)
-    # print(soup.p['class'])
-    # print(soup.a)
-    # print(soup.find_all('a'))
-    # soup.find('div', attrs={'class': 'content'})
-    # soup.find_all('li', attrs={'class': 'list'})
-    # soup.select('#id')
-    # soup.select_one('#id')
-    # selector = '#ProductListPagesWrapper > section.w-full.grow-1.pos-relative > div.product-list_ProductList__pagesContainer__zAhrX.product-list_ProductList__pagesContainer--withSidebar__17nz1 > div:nth-child(2) > a > div > article > div.d-flex.grow-1.pos-relative.flex-column > div.grow-1.d-flex.flex-column.ai-stretch.jc-start > div.pt-1.d-flex.flex-column.ai-stretch.jc-between > div:nth-child(1) > div > span'
-    # soup.select_one(selector)
