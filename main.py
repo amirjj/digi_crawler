@@ -24,6 +24,9 @@ def beutitest():
     print(soup.title.name)
     print(soup.title.string)
 
+    from bs4.builder import builder_registry
+    builder_registry.lookup('html').DEFAULT_CDATA_LIST_ATTRIBUTES
+
 
 
 if __name__ == "__main__":
