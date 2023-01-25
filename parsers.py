@@ -1,6 +1,6 @@
 import os
 from abc import ABC, abstractmethod
-from config import PATTERNS, OUTPUT_PATH, SEARCH_TREE
+from config import PATTERNS
 import re
 import json
 
@@ -29,7 +29,6 @@ class JSONParser(BaseParser):
         links = re.findall(all_patterns, text)
         return links
 
-
     @staticmethod
     def search_in_js_file(file):
         with open(file, 'r') as f:
@@ -39,14 +38,12 @@ class JSONParser(BaseParser):
         links = re.findall(all_patterns, content)
         return links
 
-
     @staticmethod
     def recursive_fetch_keys(content):
         """
         param content: a dictionary
         :return: recursively fetch all links match PATTERNS save to class variable (return None)
         """
-
         if type(content) is dict:
             for key, val in content.items():
                 if type(val) is str:
@@ -64,7 +61,6 @@ class JSONParser(BaseParser):
                             links = JSONParser.search_text_for_pattern(el)
                             if len(links) > 0:
                                 JSONParser.links_list.extend(links)
-                                # print(links)
 
     @staticmethod
     def pars_api_for_kw(file):
