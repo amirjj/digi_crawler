@@ -7,16 +7,18 @@ from requester import JSONRequester, HTTPRequester
 from config import ROOT_APIS, OUTPUT_PATH, PATTERNS, OUTPUT_PATH_JSON
 from storing_utils import JSONStore
 from urlbuilder import URLBuilder
+from selenium_crawler import SeleniumCrawler
+
+
+def update_product_dkp_sublinks(links):
+    sc = SeleniumCrawler(links)
+    sc.start()
 
 
 def crawl_trough_urls():
     bld = URLBuilder()
     bld.generate_digi_urls()
-    for link in bld.links:
-        print(link)
-        requester = HTTPRequester(link)
-        requester.get()
-        break
+    update_product_dkp_sublinks(bld.links)
 
 
 def get_json_from_file(file):

@@ -6,7 +6,7 @@ import requests
 class BaseRequester(ABC):
 
     def __init__(self, url):
-        self.url = None
+        self.url = url
 
     @abstractmethod
     def get(self):
@@ -21,10 +21,6 @@ class JSONRequester(BaseRequester):
     """
     JSONRequester handles request to url and return response as json
     """
-
-    def __init__(self, url):
-        self.url = url
-
     def get(self):
         response = requests.get(self.url)
         if response.status_code != 200:
@@ -44,14 +40,10 @@ class JSONRequester(BaseRequester):
 
 
 class HTTPRequester:
-    def __init__(self, url):
-        self.url = url
-
     def get(self):
         response = requests.get(url=self.url)
-        print(response.status_code)
         if response.status_code == 200:
-            print(response.content)
+            return response.content
 
     def post(self):
         pass

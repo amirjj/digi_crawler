@@ -7,6 +7,7 @@ ROOT_PATH = os.getcwd()
 OUTPUT_PATH_JSON = os.path.join(ROOT_PATH, 'output', 'json')
 OUTPUT_PATH_CSV = os.path.join(ROOT_PATH, 'output', 'csv')
 OUTPUT_PATH = os.path.join(ROOT_PATH, 'output')
+PRODUCT_DKP_PATH = os.path.join(OUTPUT_PATH, 'product_dkp')
 
 
 ROOT_APIS = {
@@ -127,3 +128,4 @@ PATTERNS = [
 
 ]
 
+PRODUCT_DKP_XPATH_PATTERN = '//*[@id="ProductListPagesWrapper"]/section[1]/div[2]/div[{counter}]/a'
