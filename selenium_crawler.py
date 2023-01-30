@@ -1,13 +1,15 @@
 import os
 from time import sleep
 import requests
+import glob
+
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 
 from config import PRODUCT_DKP_PATH, PRODUCT_DKP_XPATH_PATTERN, \
-    LAST_NUMBER_SELECTOR_IN_PAGINATION, EXCEPTION_CATEGORIES
+    LAST_NUMBER_SELECTOR_IN_PAGINATION, COUNT_OF_PAGES_TO_NAVIGATE
 
 
 class SeleniumCrawler:
@@ -44,7 +46,7 @@ class SeleniumCrawler:
         last_page = 2
         product_links_to_be_save = dict()
 
-        while page_number < last_page and page_number < 90:
+        while page_number < last_page and page_number < COUNT_OF_PAGES_TO_NAVIGATE:
             sleep(3)
             link = link_without_page + link_page + str(page_number)
             req = requests.get(link)
@@ -54,10 +56,13 @@ class SeleniumCrawler:
             self.driver.get(link)
             category_path = self.create_dir(link_without_page)
 
-
             sleep(2)
+
             if last_page <= 2:
-                last_page = int(self.driver.find_element(By.CSS_SELECTOR, LAST_NUMBER_SELECTOR_IN_PAGINATION).text)
+                try:
+                    last_page = int(self.driver.find_element(By.CSS_SELECTOR, LAST_NUMBER_SELECTOR_IN_PAGINATION).text)
+                except NoSuchElementException:
+                    pass
             counter = 0
             while True:
                 try:
@@ -80,7 +85,7 @@ class SeleniumCrawler:
     def start(self):
         for link in self.links:
             print(link)
-            if link.strip('/').split('/')[-1] in EXCEPTION_CATEGORIES:
+            if link.strip('/').split('/')[-1] in os.listdir(PRODUCT_DKP_PATH):
                 print("Already parsed")
                 continue
             self.pars_each_link(link)
