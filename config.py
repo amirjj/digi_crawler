@@ -129,3 +129,18 @@ PATTERNS = [
 ]
 
 PRODUCT_DKP_XPATH_PATTERN = '//*[@id="ProductListPagesWrapper"]/section[1]/div[2]/div[{counter}]/a'
+LAST_NUMBER_SELECTOR_IN_PAGINATION = '#ProductListPagesWrapper > section.w-full.grow-1.pos-relative > ' \
+                                     'div.product-list_ProductList__pagesContainer__zAhrX.product-list_ProductList__' \
+                                     'pagesContainer--withSidebar__17nz1 > div.w-full.product-list_ProductList' \
+                                     '__banner__Mxvqm > div > div:nth-child(2) > span:nth-child(4) > span'
+
+EXCEPTION_CATEGORIES = {
+    'category-chips': 0,
+    'category-consumable-parts': 0,
+    'category-fruits-and-vegetables': 0,
+    'category-hand-tools': 0,
+    'category-milking': 0,
+    'category-rural-tray': 0,
+    'category-sexual-health': 0,
+    'category-yogurt': 0,
+}
