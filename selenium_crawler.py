@@ -49,8 +49,12 @@ class SeleniumCrawler:
         while page_number < last_page and page_number < COUNT_OF_PAGES_TO_NAVIGATE:
             sleep(3)
             link = link_without_page + link_page + str(page_number)
-            req = requests.get(link)
             page_number += 1
+            try:
+                req = requests.get(link)
+            except:
+                continue
+
             if req.status_code != 200:
                 return None
             self.driver.get(link)
@@ -62,7 +66,7 @@ class SeleniumCrawler:
                 try:
                     last_page = int(self.driver.find_element(By.CSS_SELECTOR, LAST_NUMBER_SELECTOR_IN_PAGINATION).text)
                 except NoSuchElementException:
-                    pass
+                    continue
             counter = 0
             while True:
                 try:
