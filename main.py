@@ -28,6 +28,11 @@ if __name__ == "__main__":
         action='store_true',
         help='Start crawling in Digikala URLs already fetched'
     )
+    parser.add_argument(
+        '--crawl-product-pages',
+        action='store_true',
+        help='Crawl trough all final pages'
+    )
 
     parser.add_argument('--test', action='store_true')
 
@@ -45,6 +50,9 @@ if __name__ == "__main__":
 
     if args.crawl_trough_urls:
         functions.crawl_trough_urls()
+
+    if args.crawl_product_pages:
+        functions.crawl_product_pages()
 
 
 # TODO: NEED TO BE OOP AND WRITE TEST FOR ALL

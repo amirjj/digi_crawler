@@ -8,7 +8,9 @@ OUTPUT_PATH_JSON = os.path.join(ROOT_PATH, 'output', 'json')
 OUTPUT_PATH_CSV = os.path.join(ROOT_PATH, 'output', 'csv')
 OUTPUT_PATH = os.path.join(ROOT_PATH, 'output')
 PRODUCT_DKP_PATH = os.path.join(OUTPUT_PATH, 'product_dkp')
+PRODUCT_DETAIL_JSON_OUTPUT = os.path.join(OUTPUT_PATH_JSON, 'product_detail')
 
+PAGES_TO_SEARCH = ['category-women-perfume', 'category-perfume', 'category-body-splash']
 
 ROOT_APIS = {
     'v1': 'https://api.digikala.com/v1/',
@@ -135,3 +137,12 @@ LAST_NUMBER_SELECTOR_IN_PAGINATION = '#ProductListPagesWrapper > section.w-full.
                                      '__banner__Mxvqm > div > div:nth-child(2) > span:nth-child(4) > span'
 
 COUNT_OF_PAGES_TO_NAVIGATE = 10
+
+
+#Product Selector Paths
+PRODUCT_TITLE_XPATH = '//*[@id="__next"]/div[1]/div[3]/div[3]/div[2]/div[2]/div[2]/div[1]/div/h1'
+DESCRIPTION_MORE_BUTTON_XPATH = '//*[@id="PdpShortReview"]/div[2]/span'
+DESCRIPTION_XPATH = '//*[@id="PdpShortReview"]/div[1]'
+IMAGE_XPATH = '//*[@id="__next"]/div[1]/div[3]/div[3]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[1]/img'
+
+

@@ -8,6 +8,7 @@ from config import ROOT_APIS, OUTPUT_PATH, PATTERNS, OUTPUT_PATH_JSON
 from storing_utils import JSONStore
 from urlbuilder import URLBuilder
 from selenium_crawler import SeleniumCrawler
+from product_crawlers import ProductCrawler
 
 
 def update_product_dkp_sublinks(links):
@@ -19,6 +20,13 @@ def crawl_trough_urls():
     bld = URLBuilder()
     bld.generate_digi_urls()
     update_product_dkp_sublinks(bld.links)
+
+
+def crawl_product_pages():
+    bld = URLBuilder()
+    urls = bld.generate_product_urls()
+    pdk_crawler = ProductCrawler(urls)
+    pdk_crawler.start()
 
 
 def get_json_from_file(file):
