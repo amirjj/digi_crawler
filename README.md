@@ -54,3 +54,16 @@ The mechanism is to:
 4. crawl through all links fetch from stage 3 and store product details in JSON file (eg: title and description of literally all products Digikala have)
 5. after all these stages finished you have all product information exist for any single product Digikala have (all these stages may take very long time but you can see a reasonable part of this data in `output/`)
 
+By running application in below order, crawler will generate links of all products:
+```shell
+$ python main.py --update-js-links 
+$ python main.py --get-landing-api
+$ python main.py --update-landing-api-links
+$ python main.py --crawl-trough-urls
+```
+
+finally by bellow command you will get extracted data related to all products. store in `output/json/product_detail/*.json`
+
+```shell
+$ python main.py --crawl-trough-urls
+```
